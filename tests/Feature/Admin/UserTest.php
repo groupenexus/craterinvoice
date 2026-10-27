@@ -37,10 +37,10 @@ test('store user using a form request', function () {
 
 // test('store user', function () {
 //     $data = [
-//         'name' => faker()->name,
-//         'email' => faker()->unique()->safeEmail,
-//         'phone' => faker()->phoneNumber,
-//         'password' => faker()->password
+//         'name' => fake()->name,
+//         'email' => fake()->unique()->safeEmail,
+//         'phone' => fake()->phoneNumber,
+//         'password' => fake()->password
 //     ];
 
 //     postJson('/api/v1/users', $data)->assertOk();
@@ -70,10 +70,10 @@ test('update user using a form request', function () {
 //     $user = User::factory()->create();
 
 //     $data = [
-//         'name' => faker()->name,
-//         'email' => faker()->unique()->safeEmail,
-//         'phone' => faker()->phoneNumber,
-//         'password' => faker()->password
+//         'name' => fake()->name,
+//         'email' => fake()->unique()->safeEmail,
+//         'phone' => fake()->phoneNumber,
+//         'password' => fake()->password
 //     ];
 
 //     putJson("/api/v1/users/{$user->id}", $data)->assertOk();
