@@ -40,7 +40,8 @@ return [
     */
 
     'middleware' => [
-        'verify_csrf_token' => Crater\Http\Middleware\VerifyCsrfToken::class,
+        'authenticate_session' => Laravel\Sanctum\Http\Middleware\AuthenticateSession::class,
+        'validate_csrf_token' => Crater\Http\Middleware\VerifyCsrfToken::class,
         'encrypt_cookies' => Crater\Http\Middleware\EncryptCookies::class,
     ],
 
