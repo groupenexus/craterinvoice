@@ -9,17 +9,18 @@ class CustomFieldValue extends Model
 {
     use HasFactory;
 
-    protected $dates = [
-        'date_answer',
-        'date_time_answer'
-    ];
-
+    
     protected $guarded = [
-        'id',
+        'id'
     ];
 
     protected $appends = [
-        'defaultAnswer',
+        'defaultAnswer'
+    ];
+
+    protected $casts = [
+        'date_answer' => 'datetime',
+        'date_time_answer' => 'datetime'
     ];
 
     public function setTimeAnswerAttribute($value)

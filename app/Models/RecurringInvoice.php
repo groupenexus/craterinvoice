@@ -17,13 +17,10 @@ class RecurringInvoice extends Model
     use HasCustomFieldsTrait;
 
     protected $guarded = [
-        'id',
+        'id'
     ];
 
-    protected $dates = [
-        'starts_at'
-    ];
-
+    
     public const NONE = 'NONE';
     public const COUNT = 'COUNT';
     public const DATE = 'DATE';
@@ -41,7 +38,8 @@ class RecurringInvoice extends Model
 
     protected $casts = [
         'exchange_rate' => 'float',
-        'send_automatically' => 'boolean'
+        'send_automatically' => 'boolean',
+        'starts_at' => 'datetime'
     ];
 
     public function getFormattedStartsAtAttribute()

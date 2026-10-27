@@ -15,8 +15,8 @@ class Transaction extends Model
         'id'
     ];
 
-    protected $dates = [
-        'transaction_date'
+    protected $casts = [
+        'transaction_date' => 'datetime'
     ];
 
     public const PENDING = 'PENDING';

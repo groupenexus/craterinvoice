@@ -10,20 +10,18 @@ class CustomField extends Model
     use HasFactory;
 
     protected $guarded = [
-        'id',
+        'id'
     ];
 
-    protected $dates = [
-        'date_answer',
-        'date_time_answer'
-    ];
-
+    
     protected $appends = [
-        'defaultAnswer',
+        'defaultAnswer'
     ];
 
     protected $casts = [
         'options' => 'array',
+        'date_answer' => 'datetime',
+        'date_time_answer' => 'datetime'
     ];
 
     public function setTimeAnswerAttribute($value)

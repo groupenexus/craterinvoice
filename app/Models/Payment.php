@@ -28,19 +28,21 @@ class Payment extends Model implements HasMedia
     public const PAYMENT_MODE_CREDIT_CARD = 'CREDIT_CARD';
     public const PAYMENT_MODE_BANK_TRANSFER = 'BANK_TRANSFER';
 
-    protected $dates = ['created_at', 'updated_at', 'payment_date'];
-
+    
     protected $guarded = ['id'];
 
     protected $appends = [
         'formattedCreatedAt',
         'formattedPaymentDate',
-        'paymentPdfUrl',
+        'paymentPdfUrl'
     ];
 
     protected $casts = [
         'notes' => 'string',
-        'exchange_rate' => 'float'
+        'exchange_rate' => 'float',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'payment_date' => 'datetime'
     ];
 
     protected static function booted()
@@ -138,7 +140,7 @@ class Payment extends Model implements HasMedia
         \Mail::to($data['to'])->send(new SendPaymentMail($data));
 
         return [
-            'success' => true,
+            'success' => true
         ];
     }
 
@@ -435,7 +437,7 @@ class Payment extends Model implements HasMedia
             '{PAYMENT_DATE}' => $this->formattedPaymentDate,
             '{PAYMENT_MODE}' => $this->paymentMethod ? $this->paymentMethod->name : null,
             '{PAYMENT_NUMBER}' => $this->payment_number,
-            '{PAYMENT_AMOUNT}' => $this->reference_number,
+            '{PAYMENT_AMOUNT}' => $this->reference_number
         ];
     }
 
