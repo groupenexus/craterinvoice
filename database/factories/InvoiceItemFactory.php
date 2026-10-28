@@ -35,7 +35,7 @@ class InvoiceItemFactory extends Factory
             'price' => function (array $item) {
                 return Item::find($item['item_id'])->price;
             },
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
             'quantity' => $this->faker->randomDigitNotNull,
             'total' => function (array $item) {
                 return ($item['price'] * $item['quantity']);

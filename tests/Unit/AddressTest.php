@@ -3,11 +3,6 @@
 use Crater\Models\Address;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('an address belongs to user', function () {
     $address = Address::factory()->forUser()->create();
 

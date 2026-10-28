@@ -25,7 +25,7 @@ class CompanySettingFactory extends Factory
         return [
             'option' => $this->faker->word,
             'value' => $this->faker->word,
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
         ];
     }
 }

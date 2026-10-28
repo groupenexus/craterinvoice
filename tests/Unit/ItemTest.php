@@ -7,11 +7,6 @@ use Crater\Models\InvoiceItem;
 use Crater\Models\Item;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('an item belongs to unit', function () {
     $item = Item::factory()->forUnit()->create();
 

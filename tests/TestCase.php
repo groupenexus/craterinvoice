@@ -16,6 +16,11 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->seed([
+            \Database\Seeders\DatabaseSeeder::class,
+            \Database\Seeders\DemoSeeder::class,
+        ]);
+
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             // We can also customise where our factories live too if we want:
             $namespace = 'Database\\Factories\\';

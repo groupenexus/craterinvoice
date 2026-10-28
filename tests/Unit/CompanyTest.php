@@ -3,11 +3,6 @@
 use Crater\Models\Company;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('company has many customers', function () {
     $company = Company::factory()->hasCustomers()->create();
 

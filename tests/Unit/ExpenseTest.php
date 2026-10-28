@@ -3,11 +3,6 @@
 use Crater\Models\Expense;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('expense belongs to category', function () {
     $expense = Expense::factory()->forCategory()->create();
 

@@ -30,7 +30,7 @@ class AddressFactory extends Factory
             'city' => $this->faker->city,
             'state' => $this->faker->state,
             'country_id' => 231,
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
             'zip' => $this->faker->postcode,
             'phone' => $this->faker->phoneNumber,
             'fax' => $this->faker->phoneNumber,

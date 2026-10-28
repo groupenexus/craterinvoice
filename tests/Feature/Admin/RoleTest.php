@@ -6,10 +6,8 @@ use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\postJson;
 
 beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
 
-    $user = User::find(1);
+    $user = User::first();
     $this->withHeaders([
         'company' => $user->companies()->first()->id,
     ]);
@@ -28,7 +26,7 @@ test('create super admin role', function () {
     $data['companies'] = [
         [
             "role" => "super admin",
-            "id" => 1
+            "id" => User::first()->companies()->first()->id
         ]
     ];
 

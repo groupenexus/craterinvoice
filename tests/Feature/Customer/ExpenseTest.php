@@ -10,8 +10,6 @@ use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
 
 beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
 
     $customer = Customer::factory()->create();
 

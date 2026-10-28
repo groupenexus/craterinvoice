@@ -7,11 +7,6 @@ use Crater\Models\InvoiceItem;
 use Crater\Models\Tax;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('tax belongs to tax type', function () {
     $tax = Tax::factory()->create();
 

@@ -24,7 +24,7 @@ class TaxTypeFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
             'percent' => $this->faker->numberBetween($min = 0, $max = 100),
             'description' => $this->faker->text,
             'compound_tax' => 0,

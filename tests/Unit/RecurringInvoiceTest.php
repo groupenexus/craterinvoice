@@ -3,11 +3,6 @@
 use Crater\Models\RecurringInvoice;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('recurring invoice has many invoices', function () {
     $recurringInvoice = RecurringInvoice::factory()->hasInvoices(5)->create();
 
