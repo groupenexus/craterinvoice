@@ -41,6 +41,11 @@ return [
                  * Determines if it should avoid unreadable folders.
                  */
                 'ignore_unreadable_directories' => false,
+
+                /*
+                 * The path relative to which included files are stored in the backup.
+                 */
+                'relative_path' => null,
             ],
 
             /*

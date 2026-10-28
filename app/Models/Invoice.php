@@ -34,32 +34,30 @@ class Invoice extends Model implements HasMedia
     public const STATUS_PARTIALLY_PAID = 'PARTIALLY_PAID';
     public const STATUS_PAID = 'PAID';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'invoice_date',
-        'due_date'
-    ];
-
+    
     protected $casts = [
         'total' => 'integer',
         'tax' => 'integer',
         'sub_total' => 'integer',
         'discount' => 'float',
         'discount_val' => 'integer',
-        'exchange_rate' => 'float'
+        'exchange_rate' => 'float',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'invoice_date' => 'datetime',
+        'due_date' => 'datetime'
     ];
 
     protected $guarded = [
-        'id',
+        'id'
     ];
 
     protected $appends = [
         'formattedCreatedAt',
         'formattedInvoiceDate',
         'formattedDueDate',
-        'invoicePdfUrl',
+        'invoicePdfUrl'
     ];
 
     public function transactions()
@@ -136,7 +134,7 @@ class Invoice extends Model implements HasMedia
             self::STATUS_DRAFT,
             self::STATUS_SENT,
             self::STATUS_VIEWED,
-            self::STATUS_COMPLETED,
+            self::STATUS_COMPLETED
         ];
 
         if ($retrospective_edit == 'disable_on_invoice_sent' && (in_array($this->status, $status)) && ($this->paid_status === Invoice::STATUS_PARTIALLY_PAID || $this->paid_status === Invoice::STATUS_PAID)) {
@@ -474,7 +472,7 @@ class Invoice extends Model implements HasMedia
 
         return [
             'success' => true,
-            'type' => 'send',
+            'type' => 'send'
         ];
     }
 
@@ -651,7 +649,7 @@ class Invoice extends Model implements HasMedia
             '{INVOICE_DATE}' => $this->formattedInvoiceDate,
             '{INVOICE_DUE_DATE}' => $this->formattedDueDate,
             '{INVOICE_NUMBER}' => $this->invoice_number,
-            '{INVOICE_REF_NUMBER}' => $this->reference_number,
+            '{INVOICE_REF_NUMBER}' => $this->reference_number
         ];
     }
 
@@ -663,7 +661,7 @@ class Invoice extends Model implements HasMedia
         foreach ($templates as $key => $template) {
             $templateName = Str::before(basename($template), '.blade.php');
             $invoiceTemplates[$key]['name'] = $templateName;
-            $invoiceTemplates[$key]['path'] = vite_asset('img/PDF/'.$templateName.'.png');
+            $invoiceTemplates[$key]['path'] = asset('build/img/PDF/'.$templateName.'.png');
         }
 
         return $invoiceTemplates;
@@ -689,7 +687,7 @@ class Invoice extends Model implements HasMedia
     {
         if ($amount < 0) {
             return [
-                'error' => 'invalid_amount',
+                'error' => 'invalid_amount'
             ];
         }
 

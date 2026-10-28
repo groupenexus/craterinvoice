@@ -15,7 +15,7 @@ class ChangeEnablePortalFieldOfCustomersTable extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->boolean('enable_portal')->default(false)->change();
+            $table->boolean('enable_portal')->nullable()->default(false)->change();
         });
 
         $customers = Customer::all();

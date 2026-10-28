@@ -31,18 +31,11 @@ class Estimate extends Model implements HasMedia
     public const STATUS_ACCEPTED = 'ACCEPTED';
     public const STATUS_REJECTED = 'REJECTED';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'estimate_date',
-        'expiry_date'
-    ];
-
+    
     protected $appends = [
         'formattedExpiryDate',
         'formattedEstimateDate',
-        'estimatePdfUrl',
+        'estimatePdfUrl'
     ];
 
     protected $guarded = ['id'];
@@ -53,7 +46,12 @@ class Estimate extends Model implements HasMedia
         'sub_total' => 'integer',
         'discount' => 'float',
         'discount_val' => 'integer',
-        'exchange_rate' => 'float'
+        'exchange_rate' => 'float',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'estimate_date' => 'datetime',
+        'expiry_date' => 'datetime'
     ];
 
     public function getEstimatePdfUrlAttribute()
@@ -367,7 +365,7 @@ class Estimate extends Model implements HasMedia
 
         return [
             'success' => true,
-            'type' => 'send',
+            'type' => 'send'
         ];
     }
 
@@ -483,7 +481,7 @@ class Estimate extends Model implements HasMedia
             '{ESTIMATE_DATE}' => $this->formattedEstimateDate,
             '{ESTIMATE_EXPIRY_DATE}' => $this->formattedExpiryDate,
             '{ESTIMATE_NUMBER}' => $this->estimate_number,
-            '{ESTIMATE_REF_NUMBER}' => $this->reference_number,
+            '{ESTIMATE_REF_NUMBER}' => $this->reference_number
         ];
     }
 
@@ -495,7 +493,7 @@ class Estimate extends Model implements HasMedia
         foreach ($templates as $key => $template) {
             $templateName = Str::before(basename($template), '.blade.php');
             $estimateTemplates[$key]['name'] = $templateName;
-            $estimateTemplates[$key]['path'] = vite_asset('/img/PDF/'.$templateName.'.png');
+            $estimateTemplates[$key]['path'] = asset('build/img/PDF/'.$templateName.'.png');
         }
 
         return $estimateTemplates;

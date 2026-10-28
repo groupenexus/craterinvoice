@@ -17,13 +17,10 @@ class RecurringInvoice extends Model
     use HasCustomFieldsTrait;
 
     protected $guarded = [
-        'id',
+        'id'
     ];
 
-    protected $dates = [
-        'starts_at'
-    ];
-
+    
     public const NONE = 'NONE';
     public const COUNT = 'COUNT';
     public const DATE = 'DATE';
@@ -41,7 +38,8 @@ class RecurringInvoice extends Model
 
     protected $casts = [
         'exchange_rate' => 'float',
-        'send_automatically' => 'boolean'
+        'send_automatically' => 'boolean',
+        'starts_at' => 'datetime'
     ];
 
     public function getFormattedStartsAtAttribute()
@@ -313,7 +311,7 @@ class RecurringInvoice extends Model
 
         $newInvoice['creator_id'] = $this->creator_id;
         $newInvoice['invoice_date'] = Carbon::today()->format('Y-m-d');
-        $newInvoice['due_date'] = Carbon::today()->addDays($days)->format('Y-m-d');
+        $newInvoice['due_date'] = Carbon::today()->addDays((int) $days)->format('Y-m-d');
         $newInvoice['status'] = Invoice::STATUS_DRAFT;
         $newInvoice['company_id'] = $this->company_id;
         $newInvoice['paid_status'] = Invoice::STATUS_UNPAID;
