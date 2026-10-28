@@ -40,7 +40,7 @@ test('create expense', function () {
         'expense_category_id' => $expense['expense_category_id'],
         'amount' => $expense['amount'],
         'exchange_rate' => $expense['exchange_rate'],
-        'base_amount' => $expense['base_amount'],
+        'base_amount' => round($expense['base_amount']),
     ]);
 });
 
@@ -149,6 +149,6 @@ test('update expense with EUR currency', function () {
         'expense_category_id' => $expense2['expense_category_id'],
         'amount' => $expense2['amount'],
         'exchange_rate' => $expense2['exchange_rate'],
-        'base_amount' => $expense2['base_amount'],
+        'base_amount' => round($expense2['base_amount']),
     ]);
 });

@@ -19,6 +19,8 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class Estimate extends Model implements HasMedia
 {
+    use \Crater\Models\Concerns\RoundsBaseAmounts;
+
     use HasFactory;
     use InteractsWithMedia;
     use GeneratesPdfTrait;

@@ -439,7 +439,7 @@ test('update invoice with EUR currency', function () {
         'customer_id' => $invoice2['customer_id'],
         'template_name' => $invoice2['template_name'],
         'exchange_rate' => $invoice2['exchange_rate'],
-        'base_total' => $invoice2['base_total'],
+        'base_total' => round($invoice2['base_total']),
     ]);
 
     $this->assertDatabaseHas('invoice_items', [
@@ -447,13 +447,13 @@ test('update invoice with EUR currency', function () {
         'item_id' => $invoice2['items'][0]['item_id'],
         'name' => $invoice2['items'][0]['name'],
         'exchange_rate' => $invoice2['items'][0]['exchange_rate'],
-        'base_price' => $invoice2['items'][0]['base_price'],
-        'base_total' => $invoice2['items'][0]['base_total'],
+        'base_price' => round($invoice2['items'][0]['base_price']),
+        'base_total' => round($invoice2['items'][0]['base_total']),
     ]);
 
     $this->assertDatabaseHas('taxes', [
         'amount' => $invoice2['taxes'][0]['amount'],
         'name' => $invoice2['taxes'][0]['name'],
-        'base_amount' => $invoice2['taxes'][0]['base_amount'],
+        'base_amount' => round($invoice2['taxes'][0]['base_amount']),
     ]);
 });

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class Tax extends Model
 {
+    use \Crater\Models\Concerns\RoundsBaseAmounts;
+
     use HasFactory;
 
     protected $guarded = [

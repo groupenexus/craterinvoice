@@ -425,19 +425,19 @@ test('update estimate with EUR currency', function () {
         'total' => $estimate2['total'],
         'tax' => $estimate2['tax'],
         'exchange_rate' => $estimate2['exchange_rate'],
-        'base_discount_val' => $estimate2['base_discount_val'],
-        'base_sub_total' => $estimate2['base_sub_total'],
-        'base_total' => $estimate2['base_total'],
-        'base_tax' => $estimate2['base_tax'],
+        'base_discount_val' => round($estimate2['base_discount_val']),
+        'base_sub_total' => round($estimate2['base_sub_total']),
+        'base_total' => round($estimate2['base_total']),
+        'base_tax' => round($estimate2['base_tax']),
     ]);
 
     $this->assertDatabaseHas('estimate_items', [
         'estimate_id' => $estimate2['items'][0]['estimate_id'],
         'exchange_rate' => $estimate2['items'][0]['exchange_rate'],
-        'base_price' => $estimate2['items'][0]['base_price'],
-        'base_discount_val' => $estimate2['items'][0]['base_discount_val'],
-        'base_tax' => $estimate2['items'][0]['base_tax'],
-        'base_total' => $estimate2['items'][0]['base_total'],
+        'base_price' => round($estimate2['items'][0]['base_price']),
+        'base_discount_val' => round($estimate2['items'][0]['base_discount_val']),
+        'base_tax' => round($estimate2['items'][0]['base_tax']),
+        'base_total' => round($estimate2['items'][0]['base_total']),
     ]);
 
     $response->assertStatus(200);
