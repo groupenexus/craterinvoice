@@ -40,6 +40,9 @@ WORKDIR /var/www
 # Bake the application code into the image instead of relying on a mounted volume
 COPY --chown=$user:$user . /var/www
 
+# WORKDIR creates /var/www as root; the app user needs to write vendor/ into it
+RUN chown $user:$user /var/www
+
 USER $user
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
