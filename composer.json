@@ -8,7 +8,6 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.2",
         "aws/aws-sdk-php": "^3.142",
         "barryvdh/laravel-dompdf": "^3.1",
         "crater-invoice/modules": "^1.0.0",
@@ -16,33 +15,32 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.3",
         "jasonmccreary/laravel-test-assertions": "^2.0",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.0",
         "laravel/helpers": "^1.1",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9",
-        "laravel/ui": "^4.0",
+        "laravel/tinker": "^2.10",
+        "laravel/ui": "^4.6",
         "lavary/laravel-menu": "^1.8",
         "league/flysystem-aws-s3-v3": "^3.0",
-        "nesbot/carbon": "^2.72",
+        "php": "^8.2",
         "predis/predis": "^1.1",
         "silber/bouncer": "^1.0.4",
         "spatie/flysystem-dropbox": "^2.0",
-        "spatie/laravel-backup": "^9.0",
+        "spatie/laravel-backup": "^9.3",
         "spatie/laravel-medialibrary": "^11.23",
-        "vinkla/hashids": "^12.0"
+        "vinkla/hashids": "^13.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.8",
-        "jasonmccreary/laravel-test-assertions": "^2.8",
+        "jasonmccreary/laravel-test-assertions": "^2.9",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^8.0",
-        "pestphp/pest": "^2.36",
-        "pestphp/pest-plugin-faker": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.4",
-        "phpunit/phpunit": "^10.5",
-        "spatie/laravel-ignition": "^2.0"
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpunit/phpunit": "^11.0",
+        "spatie/laravel-ignition": "^2.9"
     },
     "autoload": {
         "psr-4": {
