@@ -5,11 +5,6 @@ use Crater\Models\EstimateItem;
 use Crater\Models\Item;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('estimate item belongs to estimate', function () {
     $estimateItem = EstimateItem::factory()->forEstimate()->create();
 

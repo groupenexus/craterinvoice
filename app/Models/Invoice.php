@@ -20,6 +20,8 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class Invoice extends Model implements HasMedia
 {
+    use \Crater\Models\Concerns\RoundsBaseAmounts;
+
     use HasFactory;
     use InteractsWithMedia;
     use GeneratesPdfTrait;

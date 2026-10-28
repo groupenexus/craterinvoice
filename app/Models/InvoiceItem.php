@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceItem extends Model
 {
+    use \Crater\Models\Concerns\RoundsBaseAmounts;
+
     use HasFactory;
     use HasCustomFieldsTrait;
 

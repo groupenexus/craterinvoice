@@ -3,11 +3,6 @@
 use Crater\Models\Payment;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('payment belongs to invoice', function () {
     $payment = Payment::factory()->forInvoice()->create();
 

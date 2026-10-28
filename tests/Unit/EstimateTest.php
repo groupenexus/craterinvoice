@@ -7,11 +7,6 @@ use Crater\Models\Tax;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('estimate has many estimate items', function () {
     $estimate = Estimate::factory()->create();
 

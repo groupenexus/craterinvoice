@@ -5,11 +5,6 @@ use Crater\Models\CompanySetting;
 use Illuminate\Support\Facades\Artisan;
 use function Pest\Faker\faker;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('company setting belongs to company', function () {
     $setting = CompanySetting::factory()->create();
 

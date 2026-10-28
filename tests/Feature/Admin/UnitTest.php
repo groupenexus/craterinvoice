@@ -12,10 +12,8 @@ use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
 
 beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
 
-    $user = User::find(1);
+    $user = User::first();
     $this->withHeaders([
         'company' => $user->companies()->first()->id,
     ]);
@@ -34,7 +32,7 @@ test('get units', function () {
 test('create unit', function () {
     $data = [
         'name' => 'unit name',
-        'company_id' => User::find(1)->companies()->first()->id,
+        'company_id' => User::first()->companies()->first()->id,
     ];
 
     $response = postJson('api/v1/units', $data);

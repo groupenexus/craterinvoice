@@ -4,11 +4,6 @@ use Crater\Models\Address;
 use Crater\Models\Customer;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('customer has many estimates', function () {
     $customer = Customer::factory()->hasEstimates(5)->create();
 

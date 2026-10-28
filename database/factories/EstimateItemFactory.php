@@ -37,7 +37,7 @@ class EstimateItemFactory extends Factory
             },
             'estimate_id' => Estimate::factory(),
             'quantity' => $this->faker->randomDigitNotNull,
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
             'tax' => $this->faker->randomDigitNotNull,
             'total' => function (array $item) {
                 return ($item['price'] * $item['quantity']);

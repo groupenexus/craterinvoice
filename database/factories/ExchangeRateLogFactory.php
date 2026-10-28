@@ -24,9 +24,9 @@ class ExchangeRateLogFactory extends Factory
     public function definition()
     {
         return [
-            'company_id' => Currency::find(1)->id,
-            'base_currency_id' => User::find(1)->companies()->first()->id,
-            'currency_id' => Currency::find(4)->id,
+            'company_id' => User::first()->companies()->first()->id,
+            'base_currency_id' => Currency::first()->id,
+            'currency_id' => Currency::where('code', 'ZAR')->first()->id,
             'exchange_rate' => $this->faker->randomDigitNotNull
         ];
     }

@@ -3,11 +3,6 @@
 use Crater\Models\PaymentMethod;
 use Illuminate\Support\Facades\Artisan;
 
-beforeEach(function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
-    Artisan::call('db:seed', ['--class' => 'DemoSeeder', '--force' => true]);
-});
-
 test('payment method has many payment', function () {
     $method = PaymentMethod::factory()->hasPayments(5)->create();
 

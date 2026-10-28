@@ -36,7 +36,7 @@ class RecurringInvoiceFactory extends Factory
             'discount' => $this->faker->randomDigitNotNull,
             'discount_val' => $this->faker->randomDigitNotNull,
             'customer_id' => Customer::factory(),
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
             'frequency' => '* * 18 * *',
             'limit_by' => $this->faker->randomElement(['NONE', 'COUNT', 'DATE']),
             'limit_count' => $this->faker->randomDigit,

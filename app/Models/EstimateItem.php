@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EstimateItem extends Model
 {
+    use \Crater\Models\Concerns\RoundsBaseAmounts;
+
     use HasFactory;
     use HasCustomFieldsTrait;
 

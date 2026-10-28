@@ -28,11 +28,11 @@ class PaymentFactory extends Factory
     {
         $sequenceNumber = (new SerialNumberFormatter())
             ->setModel(new Payment())
-            ->setCompany(User::find(1)->companies()->first()->id)
+            ->setCompany(User::first()->companies()->first()->id)
             ->setNextNumbers();
 
         return [
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
             'payment_date' => $this->faker->date('Y-m-d', 'now'),
             'notes' => $this->faker->text(80),
             'amount' => $this->faker->randomDigitNotNull,
@@ -40,10 +40,10 @@ class PaymentFactory extends Factory
             'customer_sequence_number' => $sequenceNumber->nextCustomerSequenceNumber,
             'payment_number' => $sequenceNumber->getNextNumber(),
             'unique_hash' => str_random(60),
-            'payment_method_id' => PaymentMethod::find(1)->id,
+            'payment_method_id' => PaymentMethod::first()->id,
             'customer_id' => Customer::factory(),
             'base_amount' => $this->faker->randomDigitNotNull,
-            'currency_id' => Currency::find(1)->id,
+            'currency_id' => Currency::first()->id,
         ];
     }
 }

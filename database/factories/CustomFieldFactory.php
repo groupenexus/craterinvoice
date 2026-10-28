@@ -32,7 +32,7 @@ class CustomFieldFactory extends Factory
                 return clean_slug($item['model_type'], $item['label']);
             },
             'type' => $this->faker->randomElement(['Text', 'Textarea', 'Phone', 'URL', 'Number','Dropdown' , 'Switch', 'Date', 'DateTime', 'Time']),
-            'company_id' => User::find(1)->companies()->first()->id,
+            'company_id' => User::first()->companies()->first()->id,
         ];
     }
 }

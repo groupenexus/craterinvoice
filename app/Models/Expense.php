@@ -12,6 +12,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Expense extends Model implements HasMedia
 {
+    use \Crater\Models\Concerns\RoundsBaseAmounts;
+
     use HasFactory;
     use InteractsWithMedia;
     use HasCustomFieldsTrait;
