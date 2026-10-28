@@ -1,8 +1,8 @@
 FROM php:8.3-fpm
 
-# Arguments defined in docker-compose.yml
-ARG user
-ARG uid
+# Arguments defined in docker-compose.yml; defaults keep builds that don't pass them working
+ARG user=crater-user
+ARG uid=1000
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
