@@ -145,6 +145,9 @@ trait GeneratesPdfTrait
             '{CONTACT_EMAIL}' => $customer->email,
             '{CONTACT_PHONE}' => $customer->phone,
             '{CONTACT_WEBSITE}' => $customer->website,
+            // Labelled so the line disappears entirely when the value is empty
+            '{CONTACT_SIRET}' => $customer->siret ? 'SIRET : '.$customer->siret : '',
+            '{CONTACT_VAT_NUMBER}' => $customer->vat_number ? 'N° TVA : '.$customer->vat_number : '',
         ];
 
         $customFields = $this->fields;
