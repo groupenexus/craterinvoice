@@ -8,6 +8,7 @@ use Crater\Http\Controllers\V1\Admin\Backup\DownloadBackupController;
 use Crater\Http\Controllers\V1\Admin\Company\CompaniesController;
 use Crater\Http\Controllers\V1\Admin\Company\CompanyController as AdminCompanyController;
 use Crater\Http\Controllers\V1\Admin\Customer\CustomersController;
+use Crater\Http\Controllers\V1\Admin\Customer\PappersController;
 use Crater\Http\Controllers\V1\Admin\Customer\CustomerStatsController;
 use Crater\Http\Controllers\V1\Admin\CustomField\CustomFieldsController;
 use Crater\Http\Controllers\V1\Admin\Dashboard\DashboardController;
@@ -244,6 +245,10 @@ Route::prefix('/v1')->group(function () {
 
             // Customers
             //----------------------------------
+
+            Route::get('/pappers/search', [PappersController::class, 'search']);
+
+            Route::get('/pappers/company', [PappersController::class, 'company']);
 
             Route::post('/customers/delete', [CustomersController::class, 'delete']);
 

@@ -71,5 +71,6 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 
 EXPOSE 8080
 
+# Once installed, apply pending migrations on start (the installer runs the first ones itself).
 # php-fpm runs in the background; nginx stays in the foreground so the container lives with it
-CMD ["sh", "-c", "php-fpm -D && exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "if [ -f storage/app/database_created ]; then php artisan migrate --force; fi; php-fpm -D && exec nginx -g 'daemon off;'"]
