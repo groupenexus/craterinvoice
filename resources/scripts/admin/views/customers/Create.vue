@@ -30,6 +30,63 @@
       </BasePageHeader>
 
       <BaseCard class="mt-5">
+        <!-- Pappers lookup: fills the form from a company name, SIREN or SIRET -->
+        <div class="grid grid-cols-5 gap-4 mb-8">
+          <h6 class="col-span-5 text-lg font-semibold text-left lg:col-span-1">
+            {{ $t('customers.pappers_lookup') }}
+          </h6>
+
+          <div class="col-span-5 lg:col-span-4">
+            <div class="flex gap-2">
+              <BaseInput
+                v-model="pappersQuery"
+                type="text"
+                class="w-full"
+                :placeholder="$t('customers.pappers_placeholder')"
+                @keydown.enter.prevent="searchPappers"
+              />
+              <BaseButton
+                type="button"
+                variant="primary-outline"
+                :loading="isSearchingPappers"
+                :disabled="isSearchingPappers || pappersQuery.trim().length < 2"
+                @click="searchPappers"
+              >
+                <template #left="slotProps">
+                  <BaseIcon name="SearchIcon" :class="slotProps.class" />
+                </template>
+                {{ $t('general.search') }}
+              </BaseButton>
+            </div>
+
+            <p v-if="pappersMessage" class="mt-2 text-sm text-gray-500">
+              {{ pappersMessage }}
+            </p>
+
+            <ul
+              v-if="pappersResults.length"
+              class="mt-2 border border-gray-200 divide-y rounded-md"
+            >
+              <li
+                v-for="result in pappersResults"
+                :key="result.siren"
+                class="px-4 py-2 cursor-pointer hover:bg-gray-50"
+                @click="applyPappersResult(result)"
+              >
+                <div class="font-medium text-gray-900">{{ result.name }}</div>
+                <div class="text-sm text-gray-500">
+                  SIREN {{ result.siren }}
+                  <span v-if="result.zip || result.city">
+                    · {{ result.zip }} {{ result.city }}
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <BaseDivider class="mb-5 md:mb-8" />
+
         <!-- Basic Info -->
         <div class="grid grid-cols-5 gap-4 mb-8">
           <h6 class="col-span-5 text-lg font-semibold text-left lg:col-span-1">
@@ -136,6 +193,30 @@
                 :content-loading="isFetchingInitialData"
                 type="url"
                 @input="v$.currentCustomer.website.$touch()"
+              />
+            </BaseInputGroup>
+
+            <BaseInputGroup
+              :label="$t('customers.siret')"
+              :content-loading="isFetchingInitialData"
+            >
+              <BaseInput
+                v-model.trim="customerStore.currentCustomer.siret"
+                :content-loading="isFetchingInitialData"
+                type="text"
+                name="siret"
+              />
+            </BaseInputGroup>
+
+            <BaseInputGroup
+              :label="$t('customers.vat_number')"
+              :content-loading="isFetchingInitialData"
+            >
+              <BaseInput
+                v-model.trim="customerStore.currentCustomer.vat_number"
+                :content-loading="isFetchingInitialData"
+                type="text"
+                name="vat_number"
               />
             </BaseInputGroup>
 
@@ -582,6 +663,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
@@ -628,6 +710,69 @@ let isLoadingContent = computed(() => customerStore.isFetchingInitialSettings)
 const pageTitle = computed(() =>
   isEdit.value ? t('customers.edit_customer') : t('customers.new_customer')
 )
+
+const pappersQuery = ref('')
+const pappersResults = ref([])
+const pappersMessage = ref('')
+const isSearchingPappers = ref(false)
+
+async function searchPappers() {
+  if (pappersQuery.value.trim().length < 2) return
+
+  isSearchingPappers.value = true
+  pappersMessage.value = ''
+  pappersResults.value = []
+
+  try {
+    const { data } = await axios.get('/api/v1/pappers/search', {
+      params: { q: pappersQuery.value.trim() },
+    })
+    pappersResults.value = data.results
+    if (!data.results.length) pappersMessage.value = t('customers.pappers_no_results')
+  } catch (e) {
+    pappersMessage.value =
+      e?.response?.data?.error === 'pappers_not_configured'
+        ? t('customers.pappers_not_configured')
+        : t('customers.pappers_error')
+  } finally {
+    isSearchingPappers.value = false
+  }
+}
+
+async function applyPappersResult(result) {
+  let company = result
+
+  // Search results can omit the VAT number and contact details, the full record has them
+  try {
+    const { data } = await axios.get('/api/v1/pappers/company', {
+      params: { siren: result.siren },
+    })
+    if (data.company) company = { ...result, ...data.company }
+  } catch (e) {
+    // Keep the search result fields if the detail call fails
+  }
+
+  const customer = customerStore.currentCustomer
+  const country = globalStore.countries.find(
+    (c) => c.code === (company.country_code || 'FR')
+  )
+
+  customer.name = company.name || customer.name
+  customer.siret = company.siret || customer.siret
+  customer.vat_number = company.vat_number || customer.vat_number
+  customer.website = company.website || customer.website
+  customer.phone = company.phone || customer.phone
+
+  customer.billing.name = company.name || customer.billing.name
+  customer.billing.address_street_1 = company.address_street_1 || ''
+  customer.billing.address_street_2 = company.address_street_2 || ''
+  customer.billing.zip = company.zip || ''
+  customer.billing.city = company.city || ''
+  if (country) customer.billing.country_id = country.id
+
+  pappersResults.value = []
+  pappersMessage.value = t('customers.pappers_applied', { name: company.name })
+}
 
 const rules = computed(() => {
   return {

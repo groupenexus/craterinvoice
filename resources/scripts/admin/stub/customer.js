@@ -10,6 +10,8 @@ export default function () {
     confirm_password:'',
     currency_id: null,
     website: null,
+    siret: null,
+    vat_number: null,
     billing: { ...addressStub },
     shipping: { ...addressStub },
     customFields: [],

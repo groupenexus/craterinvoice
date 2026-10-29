@@ -50,6 +50,16 @@ class CustomerRequest extends FormRequest
             'website' => [
                 'nullable',
             ],
+            'siret' => [
+                'nullable',
+                'string',
+                'max:20',
+            ],
+            'vat_number' => [
+                'nullable',
+                'string',
+                'max:20',
+            ],
             'prefix' => [
                 'nullable',
             ],
@@ -140,6 +150,8 @@ class CustomerRequest extends FormRequest
                 'company_name',
                 'contact_name',
                 'website',
+                'siret',
+                'vat_number',
                 'enable_portal',
                 'estimate_prefix',
                 'payment_prefix',
