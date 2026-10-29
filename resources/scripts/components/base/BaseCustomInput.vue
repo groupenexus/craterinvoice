@@ -180,6 +180,8 @@ async function getFields() {
           { label: 'Email', value: 'CONTACT_EMAIL' },
           { label: 'Phone', value: 'CONTACT_PHONE' },
           { label: 'Website', value: 'CONTACT_WEBSITE' },
+          { label: 'SIRET', value: 'CONTACT_SIRET' },
+          { label: 'VAT Number', value: 'CONTACT_VAT_NUMBER' },
           ...customerFields.value.map((i) => ({
             label: i.label,
             value: i.slug,
