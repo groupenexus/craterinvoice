@@ -3,7 +3,7 @@ FROM node:22-bookworm-slim AS assets
 
 WORKDIR /build
 # yarn.lock is the lock file that matches package.json (package-lock.json is out of sync)
-RUN npm install -g yarn@1.22.22
+RUN npm install -g --force yarn@1.22.22
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY . .
