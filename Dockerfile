@@ -61,6 +61,9 @@ COPY --from=assets --chown=$user:$user /build/public/build /var/www/public/build
 # WORKDIR creates /var/www as root; the app user needs to write vendor/ into it
 RUN chown $user:$user /var/www
 
+# Git does not keep directory modes, so the installer's 775 check would fail on 755 folders
+RUN chmod -R 775 storage bootstrap/cache
+
 USER $user
 
 # Production image: dev-only packages (require-dev) are left out
