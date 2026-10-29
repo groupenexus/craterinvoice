@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
     libmagickwand-dev \
-    mariadb-client
+    mariadb-client \
+    nginx
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -34,6 +35,9 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+# Replace the default nginx config; it serves HTTP on 8080 and hands PHP to php-fpm on 9000
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
 # Set working directory
 WORKDIR /var/www
 
@@ -46,3 +50,8 @@ RUN chown $user:$user /var/www
 USER $user
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+EXPOSE 8080
+
+# php-fpm runs in the background; nginx stays in the foreground so the container lives with it
+CMD ["sh", "-c", "php-fpm -D && exec nginx -g 'daemon off;'"]
