@@ -169,7 +169,10 @@ return [
         Crater\Providers\RouteServiceProvider::class,
         Crater\Providers\DropboxServiceProvider::class,
         Crater\Providers\ViewServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        // Dev-only: registered only when laravel-ide-helper is installed (absent with composer --no-dev)
+        ...(class_exists(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class)
+            ? [\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class]
+            : []),
     ],
 
     /*

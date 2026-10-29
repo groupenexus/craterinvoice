@@ -1,3 +1,14 @@
+# Compile the front-end from source so the image never ships stale assets
+FROM node:22-bookworm-slim AS assets
+
+WORKDIR /build
+# yarn.lock is the lock file that matches package.json (package-lock.json is out of sync)
+RUN npm install -g yarn@1.22.22
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+COPY . .
+RUN yarn build
+
 FROM php:8.3-fpm
 
 # Arguments defined in docker-compose.yml; defaults keep builds that don't pass them working
@@ -44,12 +55,16 @@ WORKDIR /var/www
 # Bake the application code into the image instead of relying on a mounted volume
 COPY --chown=$user:$user . /var/www
 
+# Replace the committed build output with the one compiled in the assets stage
+COPY --from=assets --chown=$user:$user /build/public/build /var/www/public/build
+
 # WORKDIR creates /var/www as root; the app user needs to write vendor/ into it
 RUN chown $user:$user /var/www
 
 USER $user
 
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# Production image: dev-only packages (require-dev) are left out
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 EXPOSE 8080
 

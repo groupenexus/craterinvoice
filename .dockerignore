@@ -7,4 +7,3 @@
 docker-compose.*
 LICENSE
 nginx.conf
-yarn.lock
