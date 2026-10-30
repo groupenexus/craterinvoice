@@ -49,6 +49,9 @@ RUN mkdir -p /home/$user/.composer && \
 # Replace the default nginx config; it serves HTTP on 8080 and hands PHP to php-fpm on 9000
 COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
+# Raise PHP upload limits (defaults are 2M per file, 8M per request); logos are posted base64-encoded
+COPY docker-compose/php/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
+
 # Set working directory
 WORKDIR /var/www
 
@@ -63,6 +66,9 @@ RUN chown $user:$user /var/www
 
 # Git does not keep directory modes, so the installer's 775 check would fail on 755 folders
 RUN chmod -R 775 storage bootstrap/cache
+
+# Equivalent of `php artisan storage:link`, so uploaded files (logos, attachments) are served from /storage
+RUN ln -sfn /var/www/storage/app/public /var/www/public/storage
 
 USER $user
 
