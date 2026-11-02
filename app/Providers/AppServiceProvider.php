@@ -4,6 +4,7 @@ namespace Crater\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +17,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrapThree();
+
+        // TLS ends at the proxy; keep generated URLs on https so the browser doesn't block them as mixed content
+        if (str_starts_with(config('app.url'), 'https://')) {
+            URL::forceScheme('https');
+        }
         $this->loadJsonTranslationsFrom(resource_path('scripts/locales'));
 
         if (\Storage::disk('local')->exists('database_created') && Schema::hasTable('abilities')) {

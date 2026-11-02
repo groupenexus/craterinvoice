@@ -10,9 +10,12 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
-     * @var array
+     * The app only receives traffic through the reverse proxy (Traefik/Cloudflare),
+     * so its forwarded scheme and host headers are trusted.
+     *
+     * @var array|string
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
      * The current proxy header mappings.
